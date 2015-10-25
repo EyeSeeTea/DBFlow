@@ -300,10 +300,15 @@ public class ProcessorManager implements Handler {
 
         if (roundEnvironment.processingOver()) {
             try {
+                String suffix = "";
+                for(DatabaseWriter databaseWriter : processorManager.getManagerWriters()) {
+                    suffix = (!databaseWriter.holderClassSuffix.equals(""))?databaseWriter.holderClassSuffix:"";
+                }
+
                 JavaWriter staticFlowManager = new JavaWriter(processorManager.getProcessingEnvironment().getFiler()
                                                                       .createSourceFile(
                                                                               Classes.FLOW_MANAGER_PACKAGE + "." +
-                                                                              Classes.DATABASE_HOLDER_STATIC_CLASS_NAME).openWriter());
+                                                                              Classes.DATABASE_HOLDER_STATIC_CLASS_NAME + suffix).openWriter());
                 new FlowManagerHolderWriter(processorManager).write(staticFlowManager);
 
                 staticFlowManager.close();

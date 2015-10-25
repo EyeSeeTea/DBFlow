@@ -36,6 +36,8 @@ public class DatabaseWriter extends BaseDefinition implements FlowWriter {
 
     public String databaseName;
 
+    public String holderClassSuffix;
+
     public int databaseVersion;
 
     boolean foreignKeysSupported;
@@ -72,6 +74,8 @@ public class DatabaseWriter extends BaseDefinition implements FlowWriter {
         backupEnabled = database.backupEnabled();
 
         classSeparator = database.generatedClassSeparator();
+
+        holderClassSuffix  = database.holderClassSuffix();
 
         definitionClassName = databaseName + classSeparator + "Database";
 

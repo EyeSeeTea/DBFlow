@@ -31,6 +31,9 @@ public @interface Database {
      */
     String name() default "";
 
+
+    String holderClassSuffix() default "";
+
     /**
      * In order to use Foreign keys, set this to true.
      *

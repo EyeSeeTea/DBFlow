@@ -26,7 +26,12 @@ public class FlowManagerHolderWriter implements FlowWriter {
     @Override
     public void write(JavaWriter staticFlowManager) throws IOException {
         staticFlowManager.emitPackage(Classes.FLOW_MANAGER_PACKAGE);
-        staticFlowManager.beginType(Classes.DATABASE_HOLDER_STATIC_CLASS_NAME, "class", Sets.newHashSet(Modifier.PUBLIC, Modifier.FINAL), Classes.FLOW_MANAGER_STATIC_INTERFACE);
+
+        String suffix = "";
+        for(DatabaseWriter databaseWriter : processorManager.getManagerWriters()) {
+            suffix = (!databaseWriter.holderClassSuffix.equals(""))?databaseWriter.holderClassSuffix:"";
+        }
+        staticFlowManager.beginType(Classes.DATABASE_HOLDER_STATIC_CLASS_NAME + suffix, "class", Sets.newHashSet(Modifier.PUBLIC, Modifier.FINAL), Classes.FLOW_MANAGER_STATIC_INTERFACE);
 
         staticFlowManager.beginConstructor(Sets.newHashSet(Modifier.PUBLIC));
 

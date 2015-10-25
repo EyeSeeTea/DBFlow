@@ -111,10 +111,17 @@ public class FlowManager {
      * @return The database holder, creating if necessary using reflection.
      */
     protected static DatabaseHolder getDatabaseHolder() {
+        return getDatabaseHolder("");
+    }
+
+    /**
+     * @return The database holder, creating if necessary using reflection.
+     */
+    protected static DatabaseHolder getDatabaseHolder(String holderClassSuffix) {
         if (mDatabaseHolder == null) {
             try {
                 mDatabaseHolder = (DatabaseHolder) Class.forName(
-                        "com.raizlabs.android.dbflow.config.GeneratedDatabaseHolder").newInstance();
+                        "com.raizlabs.android.dbflow.config.GeneratedDatabaseHolder" + "_EyeSeeTeaDB").newInstance();
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
@@ -154,8 +161,12 @@ public class FlowManager {
      * @param context The shared context for database usage.
      */
     public static void init(Context context) {
+        init(context, "");
+    }
+
+    public static void init(Context context, String holderClassSuffix) {
         FlowManager.context = context;
-        getDatabaseHolder();
+        getDatabaseHolder(holderClassSuffix);
     }
 
     /**
