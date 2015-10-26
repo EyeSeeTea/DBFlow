@@ -121,7 +121,7 @@ public class FlowManager {
         if (mDatabaseHolder == null) {
             try {
                 mDatabaseHolder = (DatabaseHolder) Class.forName(
-                        "com.raizlabs.android.dbflow.config.GeneratedDatabaseHolder" + "_EyeSeeTeaDB").newInstance();
+                        "com.raizlabs.android.dbflow.config.GeneratedDatabaseHolder").newInstance();
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
