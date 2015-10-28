@@ -53,4 +53,10 @@ public abstract class DatabaseHolder {
         managerNameMap.put(baseDatabaseDefinition.getDatabaseName(), baseDatabaseDefinition);
     }
 
+    void mergeDatabaseHolder(DatabaseHolder databaseHolder){
+        managerMap.putAll(databaseHolder.managerMap);
+        managerNameMap.putAll(databaseHolder.managerNameMap);
+        typeConverters.putAll(databaseHolder.typeConverters);
+    }
+
 }
