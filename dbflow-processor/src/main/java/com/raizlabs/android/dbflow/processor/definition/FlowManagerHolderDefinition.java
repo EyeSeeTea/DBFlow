@@ -1,5 +1,8 @@
 package com.raizlabs.android.dbflow.processor.definition;
 
+import static com.raizlabs.android.dbflow.processor.ClassNames
+    .IN_MEMORY_DATABASE_HOLDER_STATIC_CLASS_NAME;
+
 import com.raizlabs.android.dbflow.processor.ClassNames;
 import com.raizlabs.android.dbflow.processor.definition.method.DatabaseDefinition;
 import com.raizlabs.android.dbflow.processor.definition.method.DatabaseHolderDefinition;
@@ -23,7 +26,7 @@ public class FlowManagerHolderDefinition implements TypeDefinition {
 
     private static final String OPTION_TARGET_MODULE_NAME = "targetModuleName";
 
-    public FlowManagerHolderDefinition(ProcessorManager processorManager) {
+    public FlowManagerHolderDefinition(ProcessorManager processorManager, boolean inMemory) {
         this.processorManager = processorManager;
 
         Map<String, String> options = this.processorManager.getProcessingEnvironment().getOptions();
@@ -32,7 +35,11 @@ public class FlowManagerHolderDefinition implements TypeDefinition {
             className = options.get(OPTION_TARGET_MODULE_NAME);
         }
 
-        className += ClassNames.DATABASE_HOLDER_STATIC_CLASS_NAME;
+        if (inMemory)
+            className += IN_MEMORY_DATABASE_HOLDER_STATIC_CLASS_NAME;
+         else
+            className += ClassNames.DATABASE_HOLDER_STATIC_CLASS_NAME;
+
     }
 
     @Override

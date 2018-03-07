@@ -36,6 +36,11 @@ public class DatabaseHandler extends BaseContainerHandler<Database> {
     public static final String MODEL_NAME_MAP = "modelTableNames";
 
     private final DatabaseValidator validator = new DatabaseValidator();
+    private final boolean isInMemory;
+
+    public DatabaseHandler(boolean inMemory) {
+        this.isInMemory = inMemory;
+    }
 
     @Override
     protected Class<Database> getAnnotationClass() {
@@ -45,7 +50,7 @@ public class DatabaseHandler extends BaseContainerHandler<Database> {
 
     @Override
     protected void onProcessElement(ProcessorManager processorManager, Element element) {
-        DatabaseDefinition managerWriter = new DatabaseDefinition(processorManager, element);
+        DatabaseDefinition managerWriter = new DatabaseDefinition(processorManager, element, isInMemory);
         if (validator.validate(processorManager, managerWriter)) {
             processorManager.addFlowManagerWriter(managerWriter);
         }
